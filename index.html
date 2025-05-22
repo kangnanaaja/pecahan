@@ -1,171 +1,51 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Latihan Soal Pecahan - Kelas 6 SD</title>
-  <style>
-    body { font-family: Arial, sans-serif; padding: 20px; background-color: #f4f4f4; }
-    .question { background-color: #fff; padding: 20px; margin-bottom: 15px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
-    .options button { margin: 5px; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; }
-    .correct { background-color: #c8f7c5; }
-    .incorrect { background-color: #f7c5c5; }
-    #score { font-size: 18px; margin-top: 20px; padding: 10px; background-color: #fff; border-radius: 10px; }
-  </style>
+    <meta charset="UTF-8">
+    <title>Soal Trigonometri Pilihan Ganda</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+        }
+        .question {
+            margin-bottom: 20px;
+        }
+        .question h3 {
+            margin-bottom: 5px;
+        }
+    </style>
 </head>
 <body>
-  <h1>Latihan Soal Pecahan</h1>
-  <div id="quiz"></div>
-  <div id="score">Benar: 0 | Salah: 0</div>
+    <h1>Latihan Soal Trigonometri (Pilihan Ganda)</h1>
 
-  <script>
-    const questions = [
-      {
-        question: "Ibu membeli buah di pasar pada pagi hari. Ia membeli 2\u00bc kg apel dan 1\u00be kg pir. Setelah pulang ke rumah, ia ingin mengetahui total berat buah yang dibelinya. Berapa kilogram total buah yang dibeli ibu?",
-        options: ["3 kg", "3\u00be kg", "4 kg", "2\u00be kg", "4\u00bc kg"],
-        correct: 1
-      },
-      {
-        question: "Rani memiliki sehelai kain sepanjang 3\u00bd meter. Ia menggunakannya untuk menjahit sebuah rok, dan kain yang digunakan sepanjang 1\u00be meter. Berapa meter sisa kain yang dimiliki Rani sekarang?",
-        options: ["2 meter", "1\u00bd meter", "1\u00be meter", "2\u00bc meter", "3 meter"],
-        correct: 2
-      },
-      {
-        question: "Seorang petani memanen tomat sebanyak 7\u00bd kg pada hari Senin. Keesokan harinya, ia memanen lagi sebanyak 6\u00be kg. Ia ingin menjumlahkan hasil panennya selama dua hari. Berapa total panen yang diperoleh petani?",
-        options: ["13\u00bc kg", "14\u00bd kg", "15\u00bc kg", "13\u00be kg", "14\u00be kg"],
-        correct: 4
-      },
-      {
-        question: "Sebuah tangki air diisi air sebanyak 2/3 bagian pada pagi hari, lalu ditambah lagi 1/4 bagian pada siang hari. Berapa bagian tangki yang terisi sekarang?",
-        options: ["1/2", "3/4", "11/12", "5/6", "1"],
-        correct: 2
-      },
-      {
-        question: "Santi memakan 2/5 bagian kue, lalu adiknya memakan 1/5 bagian. Mereka ingin tahu berapa bagian kue yang sudah dimakan bersama. Berapa bagian kue yang telah dimakan?",
-        options: ["1/2", "2/5", "3/5", "4/5", "1"],
-        correct: 2
-      },
-      {
-        question: "Seorang tukang kayu memotong papan menjadi 4 bagian yang masing-masing panjangnya 3/8 meter. Ia ingin mengetahui panjang awal papan. Berapa panjang seluruh papan sebelum dipotong?",
-        options: ["1 1/4 meter", "1 1/2 meter", "1 3/4 meter", "2 meter", "2 1/4 meter"],
-        correct: 1
-      },
-      {
-        question: "Ayah membaca buku selama 3/4 jam di pagi hari dan 5/6 jam di malam hari. Ia ingin tahu total waktu membaca hari itu. Berapa lama ayah membaca buku dalam sehari?",
-        options: ["1 1/4 jam", "1 2/3 jam", "1 3/4 jam", "1 5/6 jam", "2 jam"],
-        correct: 1
-      },
-      {
-        question: "Dalam sebuah kelas, 2/5 siswa laki-laki dan 3/10 siswa perempuan menyukai pelajaran matematika. Berapa bagian siswa yang menyukai pelajaran tersebut?",
-        options: ["1/2", "4/5", "7/10", "5/10", "6/10"],
-        correct: 2
-      },
-      {
-        question: "Rina memiliki pita sepanjang 5/6 meter. Ia memotongnya menjadi bagian-bagian yang masing-masing 1/6 meter. Berapa potong pita yang dihasilkan?",
-        options: ["4", "5", "6", "7", "8"],
-        correct: 1
-      },
-      {
-        question: "Sebuah kolam diisi air sebanyak 3/5 bagian. Karena bocor, air berkurang 1/3 bagian. Berapa bagian air yang tersisa di dalam kolam?",
-        options: ["2/5", "1/2", "4/5", "1/5", "3/15"],
-        correct: 0
-      },
-      {
-        question: "Danu makan 3/4 bagian pizza. Ia memberikan 1/2 dari sisa pizza ke adiknya. Berapa bagian pizza yang dimakan adiknya?",
-        options: ["1/4", "1/8", "3/8", "1/2", "1/3"],
-        correct: 1
-      },
-      {
-        question: "Ibu membeli 1 2/3 liter susu untuk membuat kue. Ia menggunakan 3/4 liter. Berapa liter susu yang masih tersisa?",
-        options: ["1 liter", "3/4 liter", "7/12 liter", "5/6 liter", "11/12 liter"],
-        correct: 4
-      },
-      {
-        question: "Dalam sebuah lomba, peserta harus menghabiskan 1 1/4 liter air. Jika setiap peserta minum 5/8 liter, berapa orang peserta yang bisa ikut lomba dengan air tersebut?",
-        options: ["1", "2", "3", "4", "5"],
-        correct: 1
-      },
-      {
-        question: "Sebuah pipa dialiri air selama 1 1/2 jam, lalu dimatikan selama 3/4 jam, lalu dialiri lagi selama 2/3 jam. Berapa total waktu air mengalir?",
-        options: ["2 jam", "2 1/4 jam", "2 1/6 jam", "2 1/3 jam", "2 1/2 jam"],
-        correct: 2
-      },
-      {
-        question: "Seseorang membeli 2 2/5 meter kain dan ingin membaginya menjadi 4 bagian yang sama panjang. Berapa panjang setiap bagian kain?",
-        options: ["1/2 meter", "3/5 meter", "3/4 meter", "4/5 meter", "2/5 meter"],
-        correct: 1
-      },
-      {
-        question: "Nia menabung 3/5 bagian dari uang sakunya setiap hari. Jika uang sakunya Rp15.000, berapa rupiah yang ia tabung setiap hari?",
-        options: ["Rp5.000", "Rp6.000", "Rp9.000", "Rp10.000", "Rp11.000"],
-        correct: 2
-      },
-      {
-        question: "Sebuah tangki air biasanya terisi penuh dalam waktu 5/6 jam. Jika pengisian dihentikan selama 1/3 jam, berapa waktu efektif pengisian air?",
-        options: ["1/2 jam", "2/3 jam", "3/4 jam", "5/12 jam", "1/3 jam"],
-        correct: 3
-      },
-      {
-        question: "Ibu membuat jus dari 1 1/2 liter jeruk dan 3/4 liter apel. Ia mencampurnya menjadi satu. Berapa total liter jus yang dihasilkan?",
-        options: ["2 liter", "2 1/4 liter", "2 1/2 liter", "2 3/4 liter", "3 liter"],
-        correct: 1
-      },
-      {
-        question: "Deni memiliki 12 kue. Ia memberikan 1/3 bagian kuenya kepada teman-temannya. Berapa banyak kue yang diberikan Deni?",
-        options: ["3", "4", "5", "6", "7"],
-        correct: 1
-      },
-      {
-        question: "Sebuah mobil menghabiskan 2 1/2 liter bensin untuk jarak 10 km. Jika ingin menempuh jarak 40 km, berapa liter bensin yang diperlukan?",
-        options: ["5 liter", "7 liter", "10 liter", "8 liter", "12 liter"],
-        correct: 2
-      }
-    ];
+    <div class="question">
+        <h3>1. Diketahui sudut 60° dan panjang sisi samping 15 cm. Hitung panjang sisi depannya!</h3>
+        <label><input type="radio" name="q1"> A. 8,7 cm</label><br>
+        <label><input type="radio" name="q1"> B. 13,0 cm</label><br>
+        <label><input type="radio" name="q1"> C. 15,6 cm</label><br>
+        <label><input type="radio" name="q1"> D. 25,9 cm</label><br>
+    </div>
 
-    let correctAnswers = 0;
-    let incorrectAnswers = 0;
+    <div class="question">
+        <h3>2. Sebuah segitiga siku-siku memiliki sudut 30° dan panjang sisi depan 10 cm. Berapa panjang sisi miring?</h3>
+        <label><input type="radio" name="q2"> A. 15,0 cm</label><br>
+        <label><input type="radio" name="q2"> B. 20,0 cm</label><br>
+        <label><input type="radio" name="q2"> C. 5,0 cm</label><br>
+        <label><input type="radio" name="q2"> D. 25,0 cm</label><br>
+    </div>
 
-    function renderQuiz() {
-      const quizContainer = document.getElementById('quiz');
-      questions.forEach((q, i) => {
-        const div = document.createElement('div');
-        div.className = 'question';
+    <div class="question">
+        <h3>3. Jika sudut 45° dan sisi miring 14 cm. Hitung panjang sisi depan!</h3>
+        <label><input type="radio" name="q3"> A. 9,9 cm</label><br>
+        <label><input type="radio" name="q3"> B. 11,0 cm</label><br>
+        <label><input type="radio" name="q3"> C. 14,0 cm</label><br>
+        <label><input type="radio" name="q3"> D. 7,1 cm</label><br>
+    </div>
 
-        const qText = document.createElement('p');
-        qText.textContent = `${i + 1}. ${q.question}`;
-        div.appendChild(qText);
+    <!-- Tambahkan soal lainnya dengan pola serupa -->
 
-        const optionsDiv = document.createElement('div');
-        optionsDiv.className = 'options';
-
-        q.options.forEach((opt, j) => {
-          const btn = document.createElement('button');
-          btn.textContent = opt;
-          btn.onclick = function () {
-            if (btn.classList.contains('correct') || btn.classList.contains('incorrect')) return;
-
-            if (j === q.correct) {
-              btn.classList.add('correct');
-              correctAnswers++;
-            } else {
-              btn.classList.add('incorrect');
-              incorrectAnswers++;
-            }
-            updateScore();
-          };
-          optionsDiv.appendChild(btn);
-        });
-
-        div.appendChild(optionsDiv);
-        quizContainer.appendChild(div);
-      });
-    }
-
-    function updateScore() {
-      document.getElementById('score').textContent = `Benar: ${correctAnswers} | Salah: ${incorrectAnswers}`;
-    }
-
-    renderQuiz();
-  </script>
 </body>
 </html>
