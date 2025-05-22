@@ -16,51 +16,92 @@
         .question h3 {
             margin-bottom: 5px;
         }
+        .correct {
+            color: green;
+            font-weight: bold;
+        }
+        .incorrect {
+            color: red;
+            font-weight: bold;
+        }
+        #result {
+            font-size: 18px;
+            margin-top: 30px;
+            font-weight: bold;
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+        }
     </style>
 </head>
 <body>
     <h1>Latihan Soal Trigonometri (Pilihan Ganda)</h1>
 
-    <!-- Generate 25 questions -->
-    
+    <div id="quiz"></div>
+    <button onclick="checkAnswers()">Periksa Jawaban</button>
+    <div id="result"></div>
+
     <script>
         const questions = [
-            { q: "Diketahui sudut 60° dan panjang sisi samping 15 cm. Hitung panjang sisi depannya!", a: ["8,7 cm", "13,0 cm", "15,6 cm", "25,9 cm"] },
-            { q: "Sebuah segitiga siku-siku memiliki sudut 30° dan panjang sisi depan 10 cm. Berapa panjang sisi miring?", a: ["15,0 cm", "20,0 cm", "5,0 cm", "25,0 cm"] },
-            { q: "Jika sudut 45° dan sisi miring 14 cm. Hitung panjang sisi depan!", a: ["9,9 cm", "11,0 cm", "14,0 cm", "7,1 cm"] },
-            { q: "Sebuah segitiga memiliki sudut 60° dan sisi depan 8 cm. Berapa panjang sisi miring?", a: ["16,0 cm", "12,3 cm", "9,2 cm", "10,0 cm"] },
-            { q: "Diketahui sudut 30° dan panjang sisi miring 20 cm. Hitung sisi samping!", a: ["17,3 cm", "15,0 cm", "10,0 cm", "5,0 cm"] },
-            { q: "Tangga bersandar pada dinding dengan sudut 60° dan jarak alas ke dinding 5 meter. Hitung panjang tangga!", a: ["10,0 m", "7,0 m", "5,8 m", "12,0 m"] },
-            { q: "Jika sudut 45° dan sisi samping 12 cm, berapakah panjang sisi depan?", a: ["12,0 cm", "8,5 cm", "10,6 cm", "6,0 cm"] },
-            { q: "Sudut 30° diketahui memiliki sisi depan sepanjang 6 cm. Hitung sisi miringnya!", a: ["12,0 cm", "10,0 cm", "8,0 cm", "5,0 cm"] },
-            { q: "Diketahui sudut 60° dan sisi miring 18 cm. Berapakah panjang sisi depan?", a: ["15,6 cm", "10,0 cm", "12,0 cm", "9,0 cm"] },
-            { q: "Segitiga siku-siku, sudut 45° dan sisi depan 10 cm. Hitung sisi samping!", a: ["10,0 cm", "7,1 cm", "8,0 cm", "12,0 cm"] },
-            { q: "Sudut 30° dan sisi miring 16 cm. Hitung panjang sisi depan!", a: ["8,0 cm", "12,0 cm", "16,0 cm", "10,0 cm"] },
-            { q: "Diketahui sudut 60° dan sisi depan 9 cm. Berapa panjang sisi samping?", a: ["5,2 cm", "10,0 cm", "7,8 cm", "12,0 cm"] },
-            { q: "Segitiga siku-siku dengan sudut 45° dan sisi depan 7 cm. Hitung sisi miring!", a: ["9,9 cm", "7,0 cm", "10,0 cm", "4,9 cm"] },
-            { q: "Segitiga dengan sudut 30°, sisi samping = 5 cm. Hitung sisi miring!", a: ["10,0 cm", "7,0 cm", "6,0 cm", "5,8 cm"] },
-            { q: "Sudut 60° dan sisi depan = 10 cm. Berapa sisi miring?", a: ["11,5 cm", "15,0 cm", "20,0 cm", "10,0 cm"] },
-            { q: "Segitiga dengan sudut 45° dan sisi miring 11 cm. Hitung sisi samping!", a: ["7,8 cm", "9,0 cm", "6,0 cm", "10,0 cm"] },
-            { q: "Sudut 30°, sisi depan = 9 cm. Hitung panjang sisi samping!", a: ["15,6 cm", "7,8 cm", "10,0 cm", "6,0 cm"] },
-            { q: "Sudut 60° dan sisi samping 6 cm. Hitung sisi miring!", a: ["8,0 cm", "9,0 cm", "6,9 cm", "7,5 cm"] },
-            { q: "Segitiga dengan sudut 45° dan sisi samping 13 cm. Hitung sisi miring!", a: ["18,3 cm", "10,0 cm", "16,0 cm", "13,0 cm"] },
-            { q: "Sudut 30° dan sisi miring 10 cm. Hitung panjang sisi depan!", a: ["5,0 cm", "10,0 cm", "6,0 cm", "9,0 cm"] },
-            { q: "Sudut 60°, sisi depan = 14 cm. Berapa panjang sisi samping?", a: ["8,1 cm", "10,0 cm", "12,0 cm", "14,0 cm"] },
-            { q: "Segitiga dengan sudut 45° dan sisi miring = 8 cm. Hitung sisi depan!", a: ["5,7 cm", "7,1 cm", "8,0 cm", "4,5 cm"] },
-            { q: "Sudut 30° dan sisi depan 5 cm. Hitung panjang sisi samping!", a: ["8,6 cm", "10,0 cm", "5,5 cm", "3,0 cm"] },
-            { q: "Sudut 60°, sisi samping 9 cm. Hitung sisi depan!", a: ["15,6 cm", "8,7 cm", "9,0 cm", "6,0 cm"] },
-            { q: "Sudut 45° diketahui memiliki sisi samping sepanjang 10 cm. Hitung panjang sisi depan!", a: ["10,0 cm", "7,1 cm", "8,5 cm", "12,0 cm"] }
+            { q: "Diketahui sudut 60° dan panjang sisi samping 15 cm. Hitung panjang sisi depannya!", a: ["8,7 cm", "13,0 cm", "15,6 cm", "25,9 cm"], correct: 1 },
+            { q: "Sebuah segitiga siku-siku memiliki sudut 30° dan panjang sisi depan 10 cm. Berapa panjang sisi miring?", a: ["15,0 cm", "20,0 cm", "5,0 cm", "25,0 cm"], correct: 0 },
+            { q: "Jika sudut 45° dan sisi miring 14 cm. Hitung panjang sisi depan!", a: ["9,9 cm", "11,0 cm", "14,0 cm", "7,1 cm"], correct: 0 },
+            { q: "Sebuah segitiga memiliki sudut 60° dan sisi depan 8 cm. Berapa panjang sisi miring?", a: ["16,0 cm", "12,3 cm", "9,2 cm", "10,0 cm"], correct: 1 },
+            { q: "Diketahui sudut 30° dan panjang sisi miring 20 cm. Hitung sisi samping!", a: ["17,3 cm", "15,0 cm", "10,0 cm", "5,0 cm"], correct: 0 },
+            { q: "Tangga bersandar pada dinding dengan sudut 60° dan jarak alas ke dinding 5 meter. Hitung panjang tangga!", a: ["10,0 m", "7,0 m", "5,8 m", "12,0 m"], correct: 2 },
+            { q: "Jika sudut 45° dan sisi samping 12 cm, berapakah panjang sisi depan?", a: ["12,0 cm", "8,5 cm", "10,6 cm", "6,0 cm"], correct: 0 },
+            { q: "Sudut 30° diketahui memiliki sisi depan sepanjang 6 cm. Hitung sisi miringnya!", a: ["12,0 cm", "10,0 cm", "8,0 cm", "5,0 cm"], correct: 1 },
+            { q: "Diketahui sudut 60° dan sisi miring 18 cm. Berapakah panjang sisi depan?", a: ["15,6 cm", "10,0 cm", "12,0 cm", "9,0 cm"], correct: 0 },
+            { q: "Segitiga siku-siku, sudut 45° dan sisi depan 10 cm. Hitung sisi samping!", a: ["10,0 cm", "7,1 cm", "8,0 cm", "12,0 cm"], correct: 0 },
+            { q: "Sudut 30° dan sisi miring 16 cm. Hitung panjang sisi depan!", a: ["8,0 cm", "12,0 cm", "16,0 cm", "10,0 cm"], correct: 0 },
+            { q: "Diketahui sudut 60° dan sisi depan 9 cm. Berapa panjang sisi samping?", a: ["5,2 cm", "10,0 cm", "7,8 cm", "12,0 cm"], correct: 0 },
+            { q: "Segitiga siku-siku dengan sudut 45° dan sisi depan 7 cm. Hitung sisi miring!", a: ["9,9 cm", "7,0 cm", "10,0 cm", "4,9 cm"], correct: 0 },
+            { q: "Segitiga dengan sudut 30°, sisi samping = 5 cm. Hitung sisi miring!", a: ["10,0 cm", "7,0 cm", "6,0 cm", "5,8 cm"], correct: 1 },
+            { q: "Sudut 60° dan sisi depan = 10 cm. Berapa sisi miring?", a: ["11,5 cm", "15,0 cm", "20,0 cm", "10,0 cm"], correct: 0 },
+            { q: "Segitiga dengan sudut 45° dan sisi miring 11 cm. Hitung sisi samping!", a: ["7,8 cm", "9,0 cm", "6,0 cm", "10,0 cm"], correct: 0 },
+            { q: "Sudut 30°, sisi depan = 9 cm. Hitung panjang sisi samping!", a: ["15,6 cm", "7,8 cm", "10,0 cm", "6,0 cm"], correct: 1 },
+            { q: "Sudut 60° dan sisi samping 6 cm. Hitung sisi miring!", a: ["8,0 cm", "9,0 cm", "6,9 cm", "7,5 cm"], correct: 2 },
+            { q: "Segitiga dengan sudut 45° dan sisi samping 13 cm. Hitung sisi miring!", a: ["18,3 cm", "10,0 cm", "16,0 cm", "13,0 cm"], correct: 2 },
+            { q: "Sudut 30° dan sisi miring 10 cm. Hitung panjang sisi depan!", a: ["5,0 cm", "10,0 cm", "6,0 cm", "9,0 cm"], correct: 0 },
+            { q: "Sudut 60°, sisi depan = 14 cm. Berapa panjang sisi samping?", a: ["8,1 cm", "10,0 cm", "12,0 cm", "14,0 cm"], correct: 0 },
+            { q: "Segitiga dengan sudut 45° dan sisi miring = 8 cm. Hitung sisi depan!", a: ["5,7 cm", "7,1 cm", "8,0 cm", "4,5 cm"], correct: 1 },
+            { q: "Sudut 30° dan sisi depan 5 cm. Hitung panjang sisi samping!", a: ["8,6 cm", "10,0 cm", "5,5 cm", "3,0 cm"], correct: 3 },
+            { q: "Sudut 60°, sisi samping 9 cm. Hitung sisi depan!", a: ["15,6 cm", "8,7 cm", "9,0 cm", "6,0 cm"], correct: 1 },
+            { q: "Sudut 45° diketahui memiliki sisi samping sepanjang 10 cm. Hitung panjang sisi depan!", a: ["10,0 cm", "7,1 cm", "8,5 cm", "12,0 cm"], correct: 0 }
         ];
 
+        const quizContainer = document.getElementById("quiz");
         questions.forEach((item, index) => {
-            document.write(`<div class='question'>`);
-            document.write(`<h3>${index + 1}. ${item.q}</h3>`);
-            item.a.forEach((opt, i) => {
-                const letter = String.fromCharCode(65 + i);
-                document.write(`<label><input type='radio' name='q${index + 1}'> ${letter}. ${opt}</label><br>`);
-            });
-            document.write(`</div>`);
+            const div = document.createElement("div");
+            div.className = "question";
+            div.innerHTML = `<h3>${index + 1}. ${item.q}</h3>` +
+                item.a.map((opt, i) => `<label><input type='radio' name='q${index}' value='${i}'> ${String.fromCharCode(65 + i)}. ${opt}</label><br>`).join("");
+            quizContainer.appendChild(div);
         });
+
+        function checkAnswers() {
+            let correctCount = 0;
+            questions.forEach((item, index) => {
+                const inputs = document.getElementsByName("q" + index);
+                inputs.forEach((input, i) => {
+                    const label = input.parentElement;
+                    label.classList.remove("correct", "incorrect");
+                    if (input.checked) {
+                        if (parseInt(input.value) === item.correct) {
+                            correctCount++;
+                            label.classList.add("correct");
+                        } else {
+                            label.classList.add("incorrect");
+                        }
+                    } else if (i === item.correct) {
+                        label.classList.add("correct");
+                    }
+                });
+            });
+            document.getElementById("result").innerText = `Jawaban benar: ${correctCount}, Salah: ${questions.length - correctCount}`;
+        }
     </script>
 </body>
 </html>
